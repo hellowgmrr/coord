@@ -503,8 +503,8 @@ int CoordEstablish(int main_anchor_ID,int area_num)
              sprintf(dist_str,"DIST%d %d:%4.3f m",main_anchor_ID,j,dist);
              TcpTx(dist_str,15);
              sleep_ms(50);
-             dist_arr[0][j] = dist;
-             dist_arr[j][0] = dist;
+             dist_arr[0][j-main_anchor_ID] = dist;
+             dist_arr[j-main_anchor_ID][0] = dist;
 		}
 		while(1)
 		{
@@ -531,8 +531,8 @@ int CoordEstablish(int main_anchor_ID,int area_num)
 					if(rec_num!=num2){
 					sprintf(dist_str,"DIST%d%d:%4.3f m",num1,num2,dist_tmp);
 					TcpTx(dist_str,16);}
-					dist_arr[num1][num2] = dist_tmp;
-					dist_arr[num2][num1] = dist_tmp;
+					dist_arr[num1-main_anchor_ID][num2-main_anchor_ID] = dist_tmp;
+					dist_arr[num2-main_anchor_ID][num1-main_anchor_ID] = dist_tmp;
 					if((num2 == main_anchor_ID +Slot_data.AncSum-1)&&(num1 == main_anchor_ID +Slot_data.AncSum-2))
 						break;
 					rec_num=num2;
